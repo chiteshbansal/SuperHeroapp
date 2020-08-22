@@ -1,8 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Switch } from "react-router-dom";
 import classes from "./Main.module.css";
 import Axios from "axios";
-import { Link ,Route} from "react-router-dom";
+import { Link, Route } from "react-router-dom";
+
+import NavigationBar from "../../Components/NavigationBar/NavigationBar";
 import SuperHero from "../../Components/SuperHero/SuperHero";
+import Mylist from "../../Components/Mylist/Mylist";
+
+import * as actions from "../../ReduxStore/Actions/index";
 
 class Main extends Component {
   constructor(props) {
@@ -13,16 +20,24 @@ class Main extends Component {
       ShowResult: false,
     };
   }
+  componentDidMount() {
+    console.log("cdm");
+    this.props.onFetchMyList();
+  }
   onSearchChangeHandler = (event) => {
     let text = event.target.value;
     Axios.get(
       "https://www.superheroapi.com/api.php/10219177700206566/search/" +
         this.state.SearchText
-    )
-      .then((result) => {
+    ).then((result) => {
+      let updatedSearchResult = [...this.state.SearchResult];
+      if(result.data.results && result.data.results.length>0){
+        updatedSearchResult = result.data.results
+      }
         this.setState({
-          SearchResult: result.data.results,
+          SearchResult:updatedSearchResult,
           SearchText: text,
+          ShowResult: false,
         });
       })
       .catch((error) => {
@@ -46,52 +61,61 @@ class Main extends Component {
         console.log(error);
       });
   };
+  onSuperHeroInfoHandler = (superHeroId) => {
+    this.props.history.push("/SuperHero/" + superHeroId);
+  };
+
+  onRemoveFromMyListHandler = (superHeroId) => {
+    this.props.onRemoveFromMyList(superHeroId);
+  };
+  ontoggleSearchResult = () =>{
+    this.setState({
+      ShowResult:true,
+    })
+  }
   render() {
-    let SearchResult = null;
-    let SearchResultList = null;
-    // if (this.state.SearchResult && this.state.SearchResult.length > 0 && this.state.ShowResult) {
-    //   SearchResult = this.state.SearchResult.map((Result) => {
-    //     return <SuperHero SuperHero={Result} />;
-    //   });
-    // }
-
-    if (
-      this.state.SearchResult &&
-      this.state.SearchResult.length > 0 &&
-      !this.state.ShowResult
-    ) {
-      SearchResultList = this.state.SearchResult.map((Result) => {
-        return (
-          <Link to={{ pathname: "/SuperHero/" + Result.id }}>
-            <li>{Result.name}</li>
-          </Link>
-        );
-      });
-    }
-
     return (
       <div className={classes.MainPage}>
-        <div className={classes.SearchResult}>
-          <input
-            type="text"
-            name="SearchResult"
-            onChange={this.onSearchChangeHandler}
+        <NavigationBar
+          toggle = {this.ontoggleSearchResult}
+          ShowResult={this.state.ShowResult}
+          SearchResult={this.state.SearchResult}
+          change={this.onSearchChangeHandler}
+          click={this.onSubmitSearchHandler}
+          SearchText={this.state.SearchText}
+        />
+        <Switch>
+          <Route exact path="/SuperHero/:id" component={SuperHero} />
+          <Route
+            path="/"
+            render={() => {
+              return (
+                <Mylist
+                  Heros={this.props.Mylist}
+                  click={this.onSuperHeroInfoHandler}
+                  remove={this.onRemoveFromMyListHandler}
+                />
+              );
+            }}
           />
-          <button
-            onClick={this.onSubmitSearchHandler}
-            disabled={this.state.SearchText === ""}
-          >
-            Search Your Favourite SuperHero
-          </button>
-          <div className={classes.SearchResultBox}>
-            <ul className={classes.SearchResultList}>{SearchResultList}</ul>
-          </div>
-        </div>
-        {SearchResult}
-        <Route exact path="/SuperHero/:id" component={SuperHero} />
+        </Switch>
       </div>
     );
   }
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+  console.log("state is ", state);
+  return {
+    Mylist: state ? state.Mylist : [],
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchMyList: () => dispatch(actions.fetchMylistDefaultItems()),
+    onRemoveFromMyList: (superHeroId) =>
+      dispatch(actions.removeSuperHeroFromMylist(superHeroId)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
