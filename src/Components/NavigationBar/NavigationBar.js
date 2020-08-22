@@ -29,9 +29,22 @@ function NavigationBar(props) {
   }
   return (
     <div className={classes.NavigationBar}>
-      <div>
-        <NavLink to="/" activeClassName={classes.NavTabs}>
+      <div className={classes.NavTabs}>
+        <NavLink
+          exact
+          to="/"
+          className={classes.NavTab}
+          activeClassName={classes.Active_NavTab}
+        >
           Home
+        </NavLink>
+        <NavLink
+          exact
+          to="/FavoriteList"
+          className={classes.NavTab}
+          activeClassName={classes.Active_NavTab}
+        >
+          FavoriteList
         </NavLink>
       </div>
       <div className={classes.SearchResult}>

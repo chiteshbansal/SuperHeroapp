@@ -8,8 +8,10 @@ import { Link, Route } from "react-router-dom";
 import NavigationBar from "../../Components/NavigationBar/NavigationBar";
 import SuperHero from "../../Components/SuperHero/SuperHero";
 import Mylist from "../../Components/Mylist/Mylist";
+import FavoriteList from "../../Components/FavoriteList/FavoriteList";
 
 import * as actions from "../../ReduxStore/Actions/index";
+
 
 class Main extends Component {
   constructor(props) {
@@ -29,13 +31,14 @@ class Main extends Component {
     Axios.get(
       "https://www.superheroapi.com/api.php/10219177700206566/search/" +
         this.state.SearchText
-    ).then((result) => {
-      let updatedSearchResult = [...this.state.SearchResult];
-      if(result.data.results && result.data.results.length>0){
-        updatedSearchResult = result.data.results
-      }
+    )
+      .then((result) => {
+        let updatedSearchResult = [...this.state.SearchResult];
+        if (result.data.results && result.data.results.length > 0) {
+          updatedSearchResult = result.data.results;
+        }
         this.setState({
-          SearchResult:updatedSearchResult,
+          SearchResult: updatedSearchResult,
           SearchText: text,
           ShowResult: false,
         });
@@ -68,16 +71,16 @@ class Main extends Component {
   onRemoveFromMyListHandler = (superHeroId) => {
     this.props.onRemoveFromMyList(superHeroId);
   };
-  ontoggleSearchResult = () =>{
+  ontoggleSearchResult = () => {
     this.setState({
-      ShowResult:true,
-    })
-  }
+      ShowResult: true,
+    });
+  };
   render() {
     return (
       <div className={classes.MainPage}>
         <NavigationBar
-          toggle = {this.ontoggleSearchResult}
+          toggle={this.ontoggleSearchResult}
           ShowResult={this.state.ShowResult}
           SearchResult={this.state.SearchResult}
           change={this.onSearchChangeHandler}
@@ -86,6 +89,7 @@ class Main extends Component {
         />
         <Switch>
           <Route exact path="/SuperHero/:id" component={SuperHero} />
+          <Route exact path="/FavoriteList" component={FavoriteList} />
           <Route
             path="/"
             render={() => {

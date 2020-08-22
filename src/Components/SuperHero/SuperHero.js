@@ -53,6 +53,12 @@ class SuperHero extends React.Component {
         return listitem.id === this.state.SuperHero.id;
       });
     }
+    let IsPresentInFavList = -1;
+    if (this.state.SuperHero) {
+      IsPresentInFavList = this.props.FavoriteList.findIndex((listitem) => {
+        return listitem.id === this.state.SuperHero.id;
+      });
+    }
 
     console.log("ispresent", IsPresentInMyList);
     const { SuperHero } = this.state;
@@ -79,6 +85,21 @@ class SuperHero extends React.Component {
                   Add to MyList <i class="fas fa-plus-circle"></i>
                 </button>
               ) : null}
+              {IsPresentInFavList === -1 ? (
+                <i
+                  class="far fa-heart"
+                  onClick={() => {
+                    this.props.addToFavList(SuperHero);
+                  }}
+                ></i>
+              ) : (
+                <i
+                  class="fas fa-heart"
+                  onClick={() => {
+                    this.props.removeFromFavList(SuperHero.id);
+                  }}
+                ></i>
+              )}
             </div>
 
             <div className={classes.SuperHero__Info__PowerStats}>
@@ -106,6 +127,7 @@ class SuperHero extends React.Component {
 const mapStateToProps = (state) => {
   return {
     Mylist: state ? state.Mylist : [],
+    FavoriteList: state ? state.FavoriteList : [],
   };
 };
 
@@ -114,6 +136,12 @@ const mapDispatchToProps = (dispatch) => {
     onAddToMyList: (SuperHero) => {
       dispatch(actions.addSuperHeroToMylist(SuperHero));
     },
+    addToFavList: (SuperHero) => {
+      dispatch(actions.addSuperHeroToFavList(SuperHero));
+    },
+    removeFromFavList:(superHeroId)=>{
+      dispatch(actions.removeSuperHeroFromFavList(superHeroId))
+    }
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SuperHero);

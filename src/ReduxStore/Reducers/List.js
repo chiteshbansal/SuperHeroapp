@@ -28,6 +28,23 @@ const reducer = (state = initState, action) => {
         Mylist: UpdatedMylist,
       };
     }
+    case actionTypes.ADD_SUPERHERO_TO_FAVLIST: {
+      let UpdatedMylist = [...state.FavoriteList];
+      UpdatedMylist.push(action.SuperHero);
+      return {
+        ...state,
+        FavoriteList: UpdatedMylist,
+      };
+    }
+    case actionTypes.REMOVE_SUPERHERO_FROM_FAVLIST: {
+      let UpdatedMylist = state.FavoriteList.filter((item) => {
+        return item.id !== action.SuperHeroId;
+      });
+      return {
+        ...state,
+        FavoriteList: UpdatedMylist,
+      };
+    }
   }
 };
 
