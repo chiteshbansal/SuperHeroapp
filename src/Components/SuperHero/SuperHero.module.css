@@ -1,0 +1,23 @@
+.SuperHero{
+    display:flex;
+    width: 80%;
+    margin: 1rem auto;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+}
+
+.SuperHero___Image{
+    width: 30%;
+    background-color: red;
+    padding: 1rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SuperHero___Image img{
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+}
