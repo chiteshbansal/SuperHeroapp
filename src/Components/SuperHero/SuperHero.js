@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./SuperHero.module.css";
 import Axios from "axios";
 import { connect } from "react-redux";
+
 import * as actions from "../../ReduxStore/Actions/index";
 
 import Notification from "../../Utils/Notification/Notification";
@@ -12,12 +13,15 @@ class SuperHero extends React.Component {
     this.state = {
       SuperHero: null,
       IsPresentInMylist: false,
+      // showing button according whether
+      // the superhero is present in mylist and favlist or not
       IsPresentInFavlist: false,
       NotificationContent: "",
       ShowNotification: false,
     };
   }
   componentDidMount() {
+    // fetching the superHero info using the id passed through the url to the component
     Axios.get(
       "https://www.superheroapi.com/api.php/10219177700206566/" +
         this.props.match.params.id
@@ -29,6 +33,10 @@ class SuperHero extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    // checking whether to updated the component
+    // by checking whether the supehero is change
+    // or the supeHero is added to any of the list
+    // otherwise not
     if (this.state.SuperHero) {
       return (
         nextProps.match.params.id !== this.state.SuperHero.id ||
@@ -40,6 +48,8 @@ class SuperHero extends React.Component {
     }
   }
   componentDidUpdate() {
+    // fetching the superHero again if the superHero is changed
+    // but the user is on the same page rather than navigating from any other page
     Axios.get(
       "https://www.superheroapi.com/api.php/10219177700206566/" +
         this.props.match.params.id
@@ -51,6 +61,7 @@ class SuperHero extends React.Component {
   }
 
   toggleNotificationHandler = (content) => {
+    // removing the notification bar automatically after 6 secs
     setTimeout(() => {
       this.setState({
         ShowNotification: false,
@@ -68,6 +79,8 @@ class SuperHero extends React.Component {
         return listitem.id === this.state.SuperHero.id;
       });
     }
+    // checking whether the current superHero is present in Mylist or favlist or not
+    // and accordingly showing the button
     let IsPresentInFavList = -1;
     if (this.state.SuperHero) {
       IsPresentInFavList = this.props.FavoriteList.findIndex((listitem) => {
@@ -117,8 +130,6 @@ class SuperHero extends React.Component {
                       SuperHero.name +
                         " Successfully Added to Favorite SuperHeroes List"
                     );
-
-                    // this.props.history.push("/FavoriteList");
                     this.props.addToFavList(SuperHero);
                   }}
                 ></i>

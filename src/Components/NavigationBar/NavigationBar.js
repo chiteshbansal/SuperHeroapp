@@ -9,6 +9,7 @@ function NavigationBar(props) {
     props.SearchResult.length > 0 &&
     !props.ShowResult
   ) {
+    // checking whether to show the search result or not
     SearchResultList = props.SearchResult.map((Result) => {
       return (
         <Link
@@ -49,6 +50,7 @@ function NavigationBar(props) {
       </div>
       <div className={classes.SearchResult}>
         <input type="text" name="SearchResult" onChange={props.change} />
+        {/* Disabling the search button if the input box is empty  */}
         <button onClick={props.click} disabled={props.SearchText === ""}>
           Search Your Favourite SuperHero
         </button>

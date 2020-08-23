@@ -18,6 +18,8 @@ function SuperHeroCard(props) {
               }}
             ></i>
           ) : null}
+          {/* Showing button to remove from mylist or favlist
+           depending upon from where it is being rendered */}
           {props.Favlist ? (
             <i
               class="fas fa-heart"
