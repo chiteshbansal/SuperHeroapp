@@ -1,0 +1,38 @@
+.EmptyFavList {
+  width: 80%;
+  height: 200px;
+  display: flex;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 1rem auto;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
+.FavListHeading {
+  width: 80%;
+  box-sizing: border-box;
+  padding: 1rem;
+  font-size: 1.5rem;
+  margin: 1rem auto;
+  display: flex;
+  justify-content: center;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4),
+    -5px -5px 5px rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(to right, rgb(0, 140, 255), white);
+  border-radius: 10px;
+  align-items: center;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1000px) {
+  .FavList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

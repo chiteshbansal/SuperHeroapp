@@ -4,48 +4,63 @@ import Axios from "axios";
 import { connect } from "react-redux";
 import * as actions from "../../ReduxStore/Actions/index";
 
+import Notification from "../../Utils/Notification/Notification";
+
 class SuperHero extends React.Component {
-  //WARNING! To be deprecated in React v17. Use componentDidMount instead.
   constructor(props) {
     super(props);
     this.state = {
       SuperHero: null,
+      IsPresentInMylist: false,
+      IsPresentInFavlist: false,
+      NotificationContent: "",
+      ShowNotification: false,
     };
   }
   componentDidMount() {
-    console.log("cdm");
-    console.log(this.props);
     Axios.get(
       "https://www.superheroapi.com/api.php/10219177700206566/" +
         this.props.match.params.id
     ).then((result) => {
-      console.log("result is", result);
       this.setState({
         SuperHero: result.data,
       });
     });
   }
 
-  shouldComponentUpdate(nextProps) {
-    console.log("scup");
-    if (this.state.SuperHero)
-      return nextProps.match.params.id !== this.state.SuperHero.id;
-    else {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.SuperHero) {
+      return (
+        nextProps.match.params.id !== this.state.SuperHero.id ||
+        nextState.IsPresentInFavlist !== this.state.IsPresentInFavlist ||
+        nextState.IsPresentInMylist !== this.state.IsPresentInMylist
+      );
+    } else {
       return true;
     }
   }
   componentDidUpdate() {
-    console.log("cdu");
     Axios.get(
       "https://www.superheroapi.com/api.php/10219177700206566/" +
         this.props.match.params.id
     ).then((result) => {
-      console.log("result is", result);
       this.setState({
         SuperHero: result.data,
       });
     });
   }
+
+  toggleNotificationHandler = (content) => {
+    setTimeout(() => {
+      this.setState({
+        ShowNotification: false,
+      });
+    }, 6000);
+    this.setState({
+      ShowNotification: true,
+      NotificationContent: content,
+    });
+  };
   render() {
     let IsPresentInMyList = -1;
     if (this.state.SuperHero) {
@@ -60,12 +75,16 @@ class SuperHero extends React.Component {
       });
     }
 
-    console.log("ispresent", IsPresentInMyList);
     const { SuperHero } = this.state;
     let superHero = null;
     if (this.state.SuperHero) {
       superHero = (
         <div className={classes.SuperHero}>
+          {this.state.ShowNotification ? (
+            <Notification show={this.state.ShowNotification}>
+              {this.state.NotificationContent}
+            </Notification>
+          ) : null}
           <div className={classes.SuperHero___Image}>
             <img
               src={this.state.SuperHero.image.url}
@@ -78,7 +97,11 @@ class SuperHero extends React.Component {
               {IsPresentInMyList === -1 ? (
                 <button
                   onClick={() => {
-                    this.props.history.push("/");
+                    // this.props.history.push("/");
+                    this.toggleNotificationHandler(
+                      SuperHero.name + " Successfully Added to MyList"
+                    );
+                    this.setState({ IsPresentInMylist: true });
                     this.props.onAddToMyList(SuperHero);
                   }}
                 >
@@ -89,13 +112,27 @@ class SuperHero extends React.Component {
                 <i
                   class="far fa-heart"
                   onClick={() => {
+                    this.setState({ IsPresentInFavlist: true });
+                    this.toggleNotificationHandler(
+                      SuperHero.name +
+                        " Successfully Added to Favorite SuperHeroes List"
+                    );
+
+                    // this.props.history.push("/FavoriteList");
                     this.props.addToFavList(SuperHero);
                   }}
                 ></i>
               ) : (
                 <i
                   class="fas fa-heart"
+                  style={{ color: "red" }}
                   onClick={() => {
+                    this.setState({ IsPresentInFavlist: false });
+                    this.toggleNotificationHandler(
+                      SuperHero.name +
+                        " Successfully Removed from  Favorite SuperHeros List"
+                    );
+
                     this.props.removeFromFavList(SuperHero.id);
                   }}
                 ></i>
@@ -139,9 +176,9 @@ const mapDispatchToProps = (dispatch) => {
     addToFavList: (SuperHero) => {
       dispatch(actions.addSuperHeroToFavList(SuperHero));
     },
-    removeFromFavList:(superHeroId)=>{
-      dispatch(actions.removeSuperHeroFromFavList(superHeroId))
-    }
+    removeFromFavList: (superHeroId) => {
+      dispatch(actions.removeSuperHeroFromFavList(superHeroId));
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SuperHero);

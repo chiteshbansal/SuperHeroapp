@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch } from "react-router-dom";
-import classes from "./Main.module.css";
 import Axios from "axios";
 import { Link, Route } from "react-router-dom";
 
@@ -9,10 +8,10 @@ import NavigationBar from "../../Components/NavigationBar/NavigationBar";
 import SuperHero from "../../Components/SuperHero/SuperHero";
 import Mylist from "../../Components/Mylist/Mylist";
 import FavoriteList from "../../Components/FavoriteList/FavoriteList";
+import Notification from "../../Utils/Notification/Notification";
 
 import * as actions from "../../ReduxStore/Actions/index";
-
-
+import classes from "./Main.module.css";
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -20,10 +19,11 @@ class Main extends Component {
       SearchText: "",
       SearchResult: [],
       ShowResult: false,
+      showNotification: false,
+      NotificationContent: "",
     };
   }
   componentDidMount() {
-    console.log("cdm");
     this.props.onFetchMyList();
   }
   onSearchChangeHandler = (event) => {
@@ -76,9 +76,25 @@ class Main extends Component {
       ShowResult: true,
     });
   };
+  toggleNotificationHandler = (content) => {
+    setTimeout(() => {
+      this.setState({
+        showNotification: false,
+      });
+    }, 6000);
+    this.setState({
+      showNotification: true,
+      NotificationContent: content,
+    });
+  };
   render() {
     return (
       <div className={classes.MainPage}>
+        {this.state.showNotification ? (
+          <Notification show={this.state.showNotification}>
+            {this.state.NotificationContent}
+          </Notification>
+        ) : null}
         <NavigationBar
           toggle={this.ontoggleSearchResult}
           ShowResult={this.state.ShowResult}
@@ -89,12 +105,24 @@ class Main extends Component {
         />
         <Switch>
           <Route exact path="/SuperHero/:id" component={SuperHero} />
-          <Route exact path="/FavoriteList" component={FavoriteList} />
+          <Route
+            exact
+            path="/FavoriteList"
+            render={() => {
+              return (
+                <FavoriteList
+                  click={this.onSuperHeroInfoHandler}
+                  toggleNotification={this.toggleNotificationHandler}
+                />
+              );
+            }}
+          />
           <Route
             path="/"
             render={() => {
               return (
                 <Mylist
+                  toggleNotification={this.toggleNotificationHandler}
                   Heros={this.props.Mylist}
                   click={this.onSuperHeroInfoHandler}
                   remove={this.onRemoveFromMyListHandler}

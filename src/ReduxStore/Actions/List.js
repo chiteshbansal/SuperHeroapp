@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
-import { act } from "react-dom/test-utils";
+import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 
 export const fetchMyListDefaultItemsStart = () => {
   return {
@@ -22,7 +22,6 @@ export const fetchMyListDefaultItemsFail = (error) => {
 
 export const fetchMylistDefaultItems = () => {
   return (dispatch) => {
-    console.log("dispatch is ", dispatch);
     Axios.get(
       "https://www.superheroapi.com/api.php/10219177700206566/search/batman"
     )
@@ -36,6 +35,7 @@ export const fetchMylistDefaultItems = () => {
       });
   };
 };
+
 
 export const addSuperHeroToMylist = (SuperHero) => {
   return {
@@ -52,7 +52,7 @@ export const addSuperHeroToFavList = (SuperHero) => {
 
 export const removeSuperHeroFromMylist = (id) => {
   return {
-    type: actionTypes.REMOVE_SUPERHERO_FROM_MYLIST,
+    type: actionTypes.REMOVE_SUPERHERO_FROM_MYLIST_SUCCESS,
     SuperHeroId: id,
   };
 };

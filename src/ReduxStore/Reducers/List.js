@@ -19,7 +19,7 @@ const reducer = (state = initState, action) => {
         ...state,
         Mylist: UpdatedMylist,
       };
-    case actionTypes.REMOVE_SUPERHERO_FROM_MYLIST: {
+    case actionTypes.REMOVE_SUPERHERO_FROM_MYLIST_SUCCESS: {
       let UpdatedMylist = state.Mylist.filter((item) => {
         return item.id !== action.SuperHeroId;
       });

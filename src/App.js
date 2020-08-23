@@ -2,18 +2,20 @@ import React from "react";
 import Main from "./Container/Main/Main";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import SuperHero from "./Components/SuperHero/SuperHero";
-
-function App() {
-  return (
-    <BrowserRouter>
+ class App extends React.Component {
+   componentDidMount() {
+     console.log('mounting the app');
+   }
+  render() {
+    return (
+      <BrowserRouter>
       <div className="App">
-        <Switch>
-          <Route path="/" component={Main} />
-          
-        </Switch>
+        <Route to='/' component={Main}/>
       </div>
     </BrowserRouter>
-  );
+    )
+  }
 }
+
 
 export default App;
