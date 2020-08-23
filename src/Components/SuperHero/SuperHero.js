@@ -142,12 +142,30 @@ class SuperHero extends React.Component {
             <div className={classes.SuperHero__Info__PowerStats}>
               <div className={classes.Heading}>PowerStats</div>
               <div className={classes.PowerStatsList}>
-                <div>Intelligence:{SuperHero.powerstats.intelligence}</div>
-                <div>strength:{SuperHero.powerstats.strength}</div>
-                <div>power:{SuperHero.powerstats.power}</div>
-                <div>Combat:{SuperHero.powerstats.Combat}</div>
-                <div>speed:{SuperHero.powerstats.speed}</div>
-                <div>durability:{SuperHero.powerstats.durability}</div>
+                <div>
+                  <i class="fas fa-brain"></i>Intelligence:
+                  {SuperHero.powerstats.intelligence}
+                </div>
+                <div>
+                  <i class="fas fa-dumbbell"></i>strength:
+                  {SuperHero.powerstats.strength}
+                </div>
+                <div>
+                  <i class="fas fa-battery-three-quarters"></i>power:
+                  {SuperHero.powerstats.power}
+                </div>
+                <div>
+                  <i class="fas fa-fist-raised"></i>Combat:
+                  {SuperHero.powerstats.Combat}
+                </div>
+                <div>
+                  <i class="fas fa-running"></i>speed:
+                  {SuperHero.powerstats.speed}
+                </div>
+                <div>
+                  <i class="fas fa-heart"></i>durability:
+                  {SuperHero.powerstats.durability}
+                </div>
               </div>
             </div>
 

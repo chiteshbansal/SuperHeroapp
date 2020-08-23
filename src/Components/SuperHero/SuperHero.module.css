@@ -81,6 +81,17 @@
   box-sizing: border-box;
   justify-content: space-between;
 }
+.PowerStatsList >div{
+  display: flex;
+  align-items: center;
+}
+.PowerStatsList i{
+  color: white;
+  margin: 0rem .5rem;
+}
+.PowerStatsList i:hover{
+  color: red;
+}
 .Heading {
   width: 30%;
   text-align: center;
