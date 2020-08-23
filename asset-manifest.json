@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/SuperHeroapp/static/css/main.f40c7de9.chunk.css",
+    "main.js": "/SuperHeroapp/static/js/main.c3e4d3a9.chunk.js",
+    "main.js.map": "/SuperHeroapp/static/js/main.c3e4d3a9.chunk.js.map",
+    "runtime-main.js": "/SuperHeroapp/static/js/runtime-main.7a060add.js",
+    "runtime-main.js.map": "/SuperHeroapp/static/js/runtime-main.7a060add.js.map",
+    "static/js/2.1bc75d9d.chunk.js": "/SuperHeroapp/static/js/2.1bc75d9d.chunk.js",
+    "static/js/2.1bc75d9d.chunk.js.map": "/SuperHeroapp/static/js/2.1bc75d9d.chunk.js.map",
+    "index.html": "/SuperHeroapp/index.html",
+    "precache-manifest.a9e8f332162e97da33ecec6d6506da8f.js": "/SuperHeroapp/precache-manifest.a9e8f332162e97da33ecec6d6506da8f.js",
+    "service-worker.js": "/SuperHeroapp/service-worker.js",
+    "static/css/main.f40c7de9.chunk.css.map": "/SuperHeroapp/static/css/main.f40c7de9.chunk.css.map",
+    "static/js/2.1bc75d9d.chunk.js.LICENSE.txt": "/SuperHeroapp/static/js/2.1bc75d9d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7a060add.js",
+    "static/js/2.1bc75d9d.chunk.js",
+    "static/css/main.f40c7de9.chunk.css",
+    "static/js/main.c3e4d3a9.chunk.js"
+  ]
+}
