@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import Axios from "axios";
-import { scryRenderedComponentsWithType } from "react-dom/test-utils";
+// using axios for all the api calls 
 
 export const fetchMyListDefaultItemsStart = () => {
   return {

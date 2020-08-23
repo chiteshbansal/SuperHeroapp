@@ -13,6 +13,8 @@ const reducer = (state = initState, action) => {
         Mylist: action.MyList,
       };
     case actionTypes.ADD_SUPERHERO_TO_MYLIST:
+      // copying the old list using spread operator 
+      // not directly to avoid direct state mutation
       let UpdatedMylist = [...state.Mylist];
       UpdatedMylist.push(action.SuperHero);
       return {
@@ -20,6 +22,7 @@ const reducer = (state = initState, action) => {
         Mylist: UpdatedMylist,
       };
     case actionTypes.REMOVE_SUPERHERO_FROM_MYLIST_SUCCESS: {
+      // filtering the list to remove the superhero with the passed id 
       let UpdatedMylist = state.Mylist.filter((item) => {
         return item.id !== action.SuperHeroId;
       });

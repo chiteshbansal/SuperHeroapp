@@ -1,21 +1,21 @@
 import React from "react";
-import Main from "./Container/Main/Main";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+// components 
 import SuperHero from "./Components/SuperHero/SuperHero";
- class App extends React.Component {
-   componentDidMount() {
-     console.log('mounting the app');
-   }
+import Main from "./Container/Main/Main";
+
+// Browser Router is used to enable routing in App component
+class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-      <div className="App">
-        <Route to='/' component={Main}/>
-      </div>
-    </BrowserRouter>
-    )
+        <div className="App">
+          <Route to="/" component={Main} />
+        </div>
+      </BrowserRouter>
+    );
   }
 }
-
 
 export default App;
