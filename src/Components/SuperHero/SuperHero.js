@@ -173,6 +173,23 @@ class SuperHero extends React.Component {
               {SuperHero.biography.publisher}
             </div>
           </div>
+          <div className={classes.MoreInfo}>
+            <div>
+              <span>Full Name</span> :{SuperHero.biography["full-name"]}
+            </div>
+            {SuperHero.biography["place-of-birth"] !== "-" ? (
+              <div>
+                <span>Place of Birth </span>:
+                {SuperHero.biography["place-of-birth"]}
+              </div>
+            ) : null}
+            {SuperHero.biography["first-appearance"] !== "-" ? (
+              <div>
+                <span>First Appearance</span> :
+                {SuperHero.biography["first-appearance"]}
+              </div>
+            ) : null}
+          </div>
         </div>
       );
     }
