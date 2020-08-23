@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/SuperHeroapp/static/css/main.22cc89e4.chunk.css",
-    "main.js": "/SuperHeroapp/static/js/main.c2c253c4.chunk.js",
-    "main.js.map": "/SuperHeroapp/static/js/main.c2c253c4.chunk.js.map",
+    "main.css": "/SuperHeroapp/static/css/main.0d2fd880.chunk.css",
+    "main.js": "/SuperHeroapp/static/js/main.b6f85d41.chunk.js",
+    "main.js.map": "/SuperHeroapp/static/js/main.b6f85d41.chunk.js.map",
     "runtime-main.js": "/SuperHeroapp/static/js/runtime-main.7a060add.js",
     "runtime-main.js.map": "/SuperHeroapp/static/js/runtime-main.7a060add.js.map",
     "static/js/2.1bc75d9d.chunk.js": "/SuperHeroapp/static/js/2.1bc75d9d.chunk.js",
     "static/js/2.1bc75d9d.chunk.js.map": "/SuperHeroapp/static/js/2.1bc75d9d.chunk.js.map",
     "index.html": "/SuperHeroapp/index.html",
-    "precache-manifest.10b22b98f850ad4c17ca3fc1c5798626.js": "/SuperHeroapp/precache-manifest.10b22b98f850ad4c17ca3fc1c5798626.js",
+    "precache-manifest.7d5e913fbe348c4842fec5971cde5beb.js": "/SuperHeroapp/precache-manifest.7d5e913fbe348c4842fec5971cde5beb.js",
     "service-worker.js": "/SuperHeroapp/service-worker.js",
-    "static/css/main.22cc89e4.chunk.css.map": "/SuperHeroapp/static/css/main.22cc89e4.chunk.css.map",
+    "static/css/main.0d2fd880.chunk.css.map": "/SuperHeroapp/static/css/main.0d2fd880.chunk.css.map",
     "static/js/2.1bc75d9d.chunk.js.LICENSE.txt": "/SuperHeroapp/static/js/2.1bc75d9d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7a060add.js",
     "static/js/2.1bc75d9d.chunk.js",
-    "static/css/main.22cc89e4.chunk.css",
-    "static/js/main.c2c253c4.chunk.js"
+    "static/css/main.0d2fd880.chunk.css",
+    "static/js/main.b6f85d41.chunk.js"
   ]
 }
