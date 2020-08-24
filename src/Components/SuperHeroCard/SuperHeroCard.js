@@ -37,7 +37,7 @@ function SuperHeroCard(props) {
       </div>
       <div className={classes.SuperHeroCard__Img}>
         <img
-          src={props.Hero.image.url}
+          src={props.Hero.image ?props.Hero.image.url:""}
           onClick={() => props.click(props.Hero.id)}
         />
       </div>

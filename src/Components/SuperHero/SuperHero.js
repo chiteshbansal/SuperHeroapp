@@ -60,6 +60,23 @@ class SuperHero extends React.Component {
     });
   }
 
+  onRemoveFromFavListHandler = () => {
+    this.toggleNotificationHandler(
+      SuperHero.name + " Successfully Removed from  Favorite SuperHeros List"
+    );
+
+    this.props.removeFromFavList(this.state.SuperHero.id);
+    this.setState({ IsPresentInFavlist: false });
+  };
+
+  onAddToMyListHandler = () => {
+    this.toggleNotificationHandler(
+      SuperHero.name + " Successfully Added to MyList"
+    );
+    this.setState({ IsPresentInMylist: true });
+    this.props.onAddToMyList(this.state.SuperHero);
+  };
+
   toggleNotificationHandler = (content) => {
     // removing the notification bar automatically after 6 secs
     setTimeout(() => {
@@ -72,6 +89,15 @@ class SuperHero extends React.Component {
       NotificationContent: content,
     });
   };
+
+  onAddToFavListHandler = () => {
+    this.setState({ IsPresentInFavlist: true });
+    this.toggleNotificationHandler(
+      SuperHero.name + " Successfully Added to Favorite SuperHeroes List"
+    );
+    this.props.addToFavList(this.state.SuperHero);
+  };
+
   render() {
     let IsPresentInMyList = -1;
     if (this.state.SuperHero) {
@@ -108,44 +134,20 @@ class SuperHero extends React.Component {
             <div className={classes.Name}>
               <div>{this.state.SuperHero.name}</div>
               {IsPresentInMyList === -1 ? (
-                <button
-                  onClick={() => {
-                    // this.props.history.push("/");
-                    this.toggleNotificationHandler(
-                      SuperHero.name + " Successfully Added to MyList"
-                    );
-                    this.setState({ IsPresentInMylist: true });
-                    this.props.onAddToMyList(SuperHero);
-                  }}
-                >
+                <button onClick={this.onAddToMyListHandler}>
                   Add to MyList <i class="fas fa-plus-circle"></i>
                 </button>
               ) : null}
               {IsPresentInFavList === -1 ? (
                 <i
                   class="far fa-heart"
-                  onClick={() => {
-                    this.setState({ IsPresentInFavlist: true });
-                    this.toggleNotificationHandler(
-                      SuperHero.name +
-                        " Successfully Added to Favorite SuperHeroes List"
-                    );
-                    this.props.addToFavList(SuperHero);
-                  }}
+                  onClick={this.onAddToFavListHandler}
                 ></i>
               ) : (
                 <i
                   class="fas fa-heart"
                   style={{ color: "red" }}
-                  onClick={() => {
-                    this.setState({ IsPresentInFavlist: false });
-                    this.toggleNotificationHandler(
-                      SuperHero.name +
-                        " Successfully Removed from  Favorite SuperHeros List"
-                    );
-
-                    this.props.removeFromFavList(SuperHero.id);
-                  }}
+                  onClick={this.onRemoveFromFavListHandler}
                 ></i>
               )}
             </div>
